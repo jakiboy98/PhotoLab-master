@@ -94,9 +94,65 @@ public class Picture extends SimplePicture
     {
       for (Pixel pixelObj : rowArray)
       {
+    	int tempBlue = pixelObj.getBlue();
         pixelObj.setBlue(0);
+        tempBlue = pixelObj.getBlue();
       }
     }
+  }
+  
+  public void zeroRed()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setRed(0);
+      }
+    }
+  }
+  
+  public void greyScale()
+  {
+	  Pixel[][] original = this.getPixels2D();
+	  for(int row = 0; row < original.length; row++)
+	  {
+		  for(int col = 0; col < original[0].length; col++)
+		  {
+			  Pixel currentPixel = original[row][col];
+			  
+			  int red = (int)(currentPixel.getRed() * 0.299);
+			  int green = (int)(currentPixel.getGreen() * 0.587);
+			  int blue = (int)(currentPixel.getBlue() * 0.114);
+			  int grey = red+blue+green;
+			  
+			  currentPixel.setRed(grey);
+			  currentPixel.setBlue(grey);
+			  currentPixel.setGreen(grey);
+			  original[row][col].setRed(grey);
+			  original[row][col].setBlue(grey);
+			  original[row][col].setGreen(grey);
+		  }
+	  }
+  }
+  
+  public void randomColor()
+  {
+	  Pixel[][] pixels = this.getPixels2D();
+	  for(Pixel[] row : pixels)
+	  {
+		  for(Pixel currentPixel : row)
+		  {
+			  int randomRed, randomBlue, randomGreen;
+			  randomRed = (int)(Math.random() * 256);
+			  randomGreen= (int)(Math.random() * 256);
+			  randomBlue= (int)(Math.random() * 256);
+			  currentPixel.setBlue(randomBlue);
+			  currentPixel.setRed(randomRed);
+			  currentPixel.setGreen(randomGreen);
+		  }
+	  }
   }
   
   /** Method that mirrors the picture around a 
@@ -227,7 +283,9 @@ public class Picture extends SimplePicture
     Picture beach = new Picture("beach.jpg");
     beach.explore();
     beach.zeroBlue();
+//    beach.zeroRed();
     beach.explore();
+//    beach.greyScale();
   }
   
 } // this } is the end of class Picture, put all new methods before this

@@ -7,9 +7,9 @@ public class IntArrayWorker
   /** set the matrix to the passed one
     * @param theMatrix the one to use
     */
-  public void setMatrix(int[][] theMatrix)
+  public void setMatrix(int[][] matrix)
   {
-    matrix = theMatrix;
+    this.matrix = matrix;
   }
   
   /**
@@ -27,6 +27,52 @@ public class IntArrayWorker
       }
     }
     return total;
+  }
+  
+  public int getCount(int number)
+  {
+	  int count = 0;
+	  
+	  for (int row = 0; row < matrix.length; row++)
+	  {
+		for (int col = 0; col < matrix[0].length; col++)
+		  {
+			if(matrix[row][col] == number)
+			{
+				count++;
+			}
+			  
+		  }
+	  }
+	  return count;
+  }
+  
+  public int getLargest()
+{
+	  int largest = Integer.MIN_VALUE;
+			  
+	  for (int []rowArray : matrix)
+	    {
+	      for (int i : rowArray)
+	      {
+	        if (i > largest)
+	        {
+	        	largest = i;
+	        }
+	      }
+	    }
+	  return largest;
+}
+  
+  public int getColTotal(int col)
+  {
+	  int colTotal = 0;
+	  
+	  for (int[] row : matrix)
+      {
+        colTotal += row[col];
+      }
+	  return colTotal;
   }
   
   /**
@@ -91,13 +137,18 @@ public class IntArrayWorker
            col++)
       {
         if (row < col)
-          matrix[row][col] = 1;
+        {
+        	matrix[row][col] = 1;
+        }
         else if (row == col)
-          matrix[row][col] = 2;
+        {  
+        	matrix[row][col] = 2;
+        }
         else
-          matrix[row][col] = 3;
+        {
+        	matrix[row][col] = 3;
+        }
       }
     }
   }
- 
 }
